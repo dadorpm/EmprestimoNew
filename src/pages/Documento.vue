@@ -16,7 +16,7 @@
 
             <q-card-section class="q-pt-none">
               <q-input
-                              class="q-mb-md"
+                class="q-mb-md"
                 clearable
                 clear-icon="close"
                 filled
@@ -35,7 +35,7 @@
                 </template>
               </q-input>
               <q-input
-                              class="q-mb-md"
+                class="q-mb-md"
                 clearable
                 clear-icon="close"
                 filled
@@ -58,7 +58,7 @@
                 </template>
               </q-input>
               <q-input
-                              class="q-mb-md"
+                class="q-mb-md"
                 clearable
                 clear-icon="close"
                 filled
@@ -79,7 +79,7 @@
                 </template>
               </q-input>
               <q-input
-                              class="q-mb-md"
+                class="q-mb-md"
                 clearable
                 clear-icon="close"
                 filled
@@ -99,7 +99,7 @@
                 </template>
               </q-input>
               <q-input
-                              class="q-mb-md"
+                class="q-mb-md"
                 clearable
                 clear-icon="close"
                 filled
@@ -148,11 +148,7 @@
                 flat
                 class="q-ml-sm"
               />
-              <q-btn
-                label="Cancelar"
-                color="negative"
-                v-close-popup
-              />
+              <q-btn label="Cancelar" color="negative" v-close-popup />
               <q-btn
                 label="Preencher"
                 type="submit"
@@ -324,7 +320,7 @@ li {
 .dados {
   margin: 0 50px;
   max-width: 500px;
-  font-family: 'Times New Roman', Times, serif;
+  font-family: "Times New Roman", Times, serif;
 }
 
 .h3 {
