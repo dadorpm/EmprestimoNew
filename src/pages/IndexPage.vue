@@ -1,10 +1,11 @@
 <template>
-  <q-page class="flex flex-center">
+  <q-page class="flex column flex-center">
     <img
       alt="Quasar logo"
-      src="~assets/quasar-logo-vertical.svg"
-      style="width: 200px; height: 200px"
+      src="~assets/faced.png"
+      style="width: 300px; height: 160px"
     >
+  <h4 class="">Sistema de Geração de Termo de Empréstimo</h4>
   </q-page>
 </template>
 

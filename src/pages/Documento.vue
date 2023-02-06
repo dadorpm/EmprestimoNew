@@ -16,6 +16,9 @@
 
             <q-card-section class="q-pt-none">
               <q-input
+                              class="q-mb-md"
+                clearable
+                clear-icon="close"
                 filled
                 dense
                 v-model="this.form.nome"
@@ -26,9 +29,15 @@
                   (val) =>
                     (val && val.length > 0) || 'É necessário digitar o nome',
                 ]"
-              />
-
+              >
+                <template v-slot:append>
+                  <q-icon name="person" />
+                </template>
+              </q-input>
               <q-input
+                              class="q-mb-md"
+                clearable
+                clear-icon="close"
                 filled
                 dense
                 type="text"
@@ -43,9 +52,15 @@
                     (val !== null && val !== '') ||
                     'Por favor digite o Siape ou o CPF',
                 ]"
-              />
-
+              >
+                <template v-slot:append>
+                  <q-icon name="badge" />
+                </template>
+              </q-input>
               <q-input
+                              class="q-mb-md"
+                clearable
+                clear-icon="close"
                 filled
                 dense
                 v-model="this.form.tel"
@@ -58,8 +73,15 @@
                     (val && val.length > 0) ||
                     'É necessário digitar o telefone de contato',
                 ]"
-              />
+              >
+                <template v-slot:append>
+                  <q-icon name="call" />
+                </template>
+              </q-input>
               <q-input
+                              class="q-mb-md"
+                clearable
+                clear-icon="close"
                 filled
                 dense
                 v-model="this.form.origem"
@@ -71,8 +93,15 @@
                     (val && val.length > 0) ||
                     'É necessário digitar o setor de origem',
                 ]"
-              />
+              >
+                <template v-slot:append>
+                  <q-icon name="move_up" />
+                </template>
+              </q-input>
               <q-input
+                              class="q-mb-md"
+                clearable
+                clear-icon="close"
                 filled
                 dense
                 v-model="this.form.setor"
@@ -84,8 +113,13 @@
                     (val && val.length > 0) ||
                     'É necessário digitar o setor de destino',
                 ]"
-              />
+                ><template v-slot:append>
+                  <q-icon name="move_down" />
+                </template>
+              </q-input>
               <q-input
+                clearable
+                clear-icon="close"
                 v-model="this.form.equipamento"
                 filled
                 dense
@@ -98,7 +132,11 @@
                     (val && val.length > 0) ||
                     'É necessário digitar a especificação do equipamento',
                 ]"
-              />
+              >
+                <template v-slot:append>
+                  <q-icon name="weekend" />
+                </template>
+              </q-input>
             </q-card-section>
 
             <q-card-actions align="right" class="text-primary">
@@ -113,7 +151,6 @@
               <q-btn
                 label="Cancelar"
                 color="negative"
-                @click="limpar()"
                 v-close-popup
               />
               <q-btn
@@ -179,9 +216,9 @@
             </li>
             <li>
               Indenizar os danos causados por negligência, imprudência,
-              imperícia, <br>má utilização, guarda inadequada, desleixo ou outro
-              dano que possa decorrer, direta ou indiretamente, de sua ação ou
-              omissão.
+              imperícia, <br />má utilização, guarda inadequada, desleixo ou
+              outro dano que possa decorrer, direta ou indiretamente, de sua
+              ação ou omissão.
             </li>
           </ul>
         </div>
@@ -287,6 +324,7 @@ li {
 .dados {
   margin: 0 50px;
   max-width: 500px;
+  font-family: 'Times New Roman', Times, serif;
 }
 
 .h3 {
@@ -309,7 +347,7 @@ li {
 }
 
 .responsabilidade {
-  font: 600 12px;
+  font: 400 12px;
   font-family: Arial, Helvetica, sans-serif;
 
   margin-left: 50px;
