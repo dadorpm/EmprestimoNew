@@ -22,10 +22,10 @@ function createWindow () {
     width: 1000,
     height: 600,
     //fullscreen:true,
-    skipTaskbar:true,
     autoHideMenuBar:true,
     useContentSize: true,
     webPreferences: {
+      sandbox:false,
       contextIsolation: true,
       // More info: https://v2.quasar.dev/quasar-cli-webpack/developing-electron-apps/electron-preload-script
       preload: path.resolve(__dirname, process.env.QUASAR_ELECTRON_PRELOAD)
