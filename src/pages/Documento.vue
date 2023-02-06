@@ -34,50 +34,118 @@
                   <q-icon name="person" />
                 </template>
               </q-input>
-              <q-input
-                class="q-mb-md"
-                clearable
-                clear-icon="close"
-                filled
-                dense
-                type="text"
-                v-model="this.form.siapecpf"
-                label="SIAPE ou CPF"
-                hint="SIAPE ou CPF"
-                mask="###.###.###-##"
-                reverse-fill-mask
-                lazy-rules
-                :rules="[
-                  (val) =>
-                    (val !== null && val !== '') ||
-                    'Por favor digite o Siape ou o CPF',
-                ]"
-              >
-                <template v-slot:append>
-                  <q-icon name="badge" />
-                </template>
-              </q-input>
-              <q-input
-                class="q-mb-md"
-                clearable
-                clear-icon="close"
-                filled
-                dense
-                v-model="this.form.tel"
-                label="Digite o telefone"
-                hint="Telefone com ddd"
-                mask="(##) X#### - ####"
-                lazy-rules
-                :rules="[
-                  (val) =>
-                    (val && val.length > 0) ||
-                    'É necessário digitar o telefone de contato',
-                ]"
-              >
-                <template v-slot:append>
-                  <q-icon name="call" />
-                </template>
-              </q-input>
+              <div class="row">
+                <q-input
+                  v-if="this.cpf"
+                  class="q-mb-md col-8"
+                  clearable
+                  clear-icon="close"
+                  filled
+                  dense
+                  type="text"
+                  v-model="this.form.siapecpf"
+                  label="CPF"
+                  hint="Digite o CPF"
+                  mask="###.###.###-##"
+                  lazy-rules
+                  :rules="[
+                    (val) =>
+                      (val !== null && val !== '') || 'Por favor digite o CPF',
+                  ]"
+                >
+                  <template v-slot:append>
+                    <q-icon name="remember_me" />
+                  </template>
+                </q-input>
+                <q-input
+                  v-else
+                  class="q-mb-md col-8"
+                  clearable
+                  clear-icon="close"
+                  filled
+                  dense
+                  type="text"
+                  v-model="this.form.siapecpf"
+                  label="SIAPE"
+                  hint="Digite o SIAPE"
+                  mask="########"
+                  reverse-fill-mask
+                  lazy-rules
+                  :rules="[
+                    (val) =>
+                      (val !== null && val !== '') ||
+                      'Por favor digite o Siape',
+                  ]"
+                >
+                  <template v-slot:append>
+                    <q-icon name="badge" />
+                  </template>
+                </q-input>
+                <q-toggle
+                  v-model="this.cpf"
+                  class="col self-start"
+                  left-label
+                  size="lg"
+                  color="green"
+                  icon="person"
+                  label="CPF?"
+                />
+              </div>
+              <div class="row">
+                <q-input
+                  v-if="this.cel"
+                  class="q-mb-md col-8"
+                  clearable
+                  clear-icon="close"
+                  filled
+                  dense
+                  v-model="this.form.tel"
+                  label="Digite o Celular"
+                  hint="Celular com ddd"
+                  mask="(##) ##### - ####"
+                  lazy-rules
+                  :rules="[
+                    (val) =>
+                      (val && val.length > 0) ||
+                      'É necessário digitar o celular de contato',
+                  ]"
+                >
+                  <template v-slot:append>
+                    <q-icon name="phone_iphone" />
+                  </template>
+                </q-input>
+                <q-input
+                  v-else
+                  class="q-mb-md col-8"
+                  clearable
+                  clear-icon="close"
+                  filled
+                  dense
+                  v-model="this.form.tel"
+                  label="Digite o Telefone"
+                  hint="Telefone com ddd"
+                  mask="(##) #### - ####"
+                  lazy-rules
+                  :rules="[
+                    (val) =>
+                      (val && val.length > 0) ||
+                      'É necessário digitar o telefone de contato',
+                  ]"
+                >
+                  <template v-slot:append>
+                    <q-icon name="call" />
+                  </template>
+                </q-input>
+                <q-toggle
+                  v-model="this.cel"
+                  class="col self-start"
+                  left-label
+                  size="lg"
+                  color="blue"
+                  icon="phone_iphone"
+                  label="Celular?"
+                />
+              </div>
               <q-input
                 class="q-mb-md"
                 clearable
@@ -189,7 +257,7 @@
             <td>Setor/Unidade: {{ this.form.setor }}</td>
           </tr>
           <tr>
-            <td>Especificação de Equipamento: {{ this.form.equipamento }}</td>
+            <td>Especificação do Equipamento: {{ this.form.equipamento }}</td>
           </tr>
         </table>
         <br />
@@ -207,7 +275,7 @@
               Comprometer-se a não conceder empréstimo ou confiar a outrem;
             </li>
             <li>
-              Comunicar, imediatamente, qualquer incidente e ocorrência com o
+              Comunicar imediatamente qualquer incidente e ocorrência com o
               equipamento sob sua guarda e responsabilidade;
             </li>
             <li>
@@ -243,7 +311,8 @@ export default {
     return {
       titulo: "Universidade Federal da Bahia",
       subtitulo: "Faculdade de Educação",
-      preenchido: true,
+      cel: false,
+      cpf: false,
       form: {
         nome: "",
         tel: "",
