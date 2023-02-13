@@ -5,7 +5,7 @@
     leave-active-class="animated zoomOut"
   >
     <q-page class="flex flex-center fundo">
-      <div id="documento">
+      <div id="documento" class="shadow-box shadow-up-10">
         <q-page-sticky position="bottom-right" :offset="[250, 150]">
           <q-btn fab icon="edit_note" color="green" @click="prompt = true" />
         </q-page-sticky>
@@ -382,7 +382,7 @@ export default {
   font-family: Arial, Helvetica, sans-serif;
   padding-top: 30px;
   height: 8.4in;
-  width: 8.5in;
+  width: 6.2in;
   background-color: white;
 }
 img {
