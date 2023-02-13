@@ -12,7 +12,7 @@
         <q-page-sticky position="bottom-right" :offset="[250, 80]">
           <q-btn fab icon="picture_as_pdf" color="accent" @click="makepdf()" />
         </q-page-sticky>
-        <q-dialog v-model="prompt" persistent>
+        <q-dialog v-model="prompt">
           <q-card style="min-width: 600px">
             <q-form @submit.prevent @reset="onReset" class="q-gutter-md">
               <q-card-section>
