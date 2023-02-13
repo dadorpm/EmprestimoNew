@@ -79,8 +79,8 @@
                     :rules="[
                       (val) =>
                         (val !== null && val !== '') ||
-                        'Por favor digite o Siape', 
-                        (val) => val.length <= 8 || 'Insira um SIAPE válido'
+                        'Por favor digite o Siape',
+                      (val) => val.length <= 8 || 'Insira um SIAPE válido',
                     ]"
                   >
                     <template v-slot:append>
@@ -270,7 +270,7 @@
           <div class="responsabilidade">
             <p>
               Pelo presente Termo de Entrega e Responsabilidade, o servidor
-              acima qualificado declara que recebeu o equipamento e acessório
+              acima qualificado declara que recebeu o equipamentos e acessórios
               acima especificados, de propriedade do setor/unidade:
               {{ this.form.origem }}, assumindo o compromisso de manter a guarda
               pessoal sobre os mesmos, ficando a seu cargo:
@@ -345,6 +345,22 @@ export default {
     return {
       prompt: ref(false),
     };
+  },
+  watch: {
+    cel(novo) {
+      if (novo) {
+        this.form.tel = "";
+      } else {
+        this.form.tel = "";
+      }
+    },
+    cpf(novo) {
+      if (novo) {
+        this.form.siapecpf = "";
+      } else {
+        this.form.siapecpf = "";
+      }
+    },
   },
   methods: {
     limpar() {
