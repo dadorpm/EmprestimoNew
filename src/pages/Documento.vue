@@ -75,12 +75,12 @@
                     label="SIAPE"
                     hint="Digite o SIAPE"
                     mask="########"
-                    reverse-fill-mask
                     lazy-rules
                     :rules="[
                       (val) =>
                         (val !== null && val !== '') ||
-                        'Por favor digite o Siape',
+                        'Por favor digite o Siape', 
+                        (val) => val.length <= 8 || 'Insira um SIAPE válido'
                     ]"
                   >
                     <template v-slot:append>
