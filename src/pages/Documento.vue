@@ -1,300 +1,307 @@
 <template>
-  <q-page class="flex flex-center fundo">
-    <div id="documento">
-      <q-page-sticky position="bottom-right" :offset="[250, 150]">
-        <q-btn fab icon="edit_note" color="green" @click="prompt = true" />
-      </q-page-sticky>
-      <q-page-sticky position="bottom-right" :offset="[250, 80]">
-        <q-btn fab icon="picture_as_pdf" color="accent" @click="makepdf()" />
-      </q-page-sticky>
-      <q-dialog v-model="prompt" persistent>
-        <q-card style="min-width: 600px">
-          <q-form @submit.prevent @reset="onReset" class="q-gutter-md">
-            <q-card-section>
-              <div class="text-h6">Preencha as Informações</div>
-            </q-card-section>
+  <transition
+    appear
+    enter-active-class="animated zoomIn"
+    leave-active-class="animated zoomOut"
+  >
+    <q-page class="flex flex-center fundo">
+      <div id="documento" class="shadow-box shadow-up-10">
+        <q-page-sticky position="bottom-right" :offset="[250, 150]">
+          <q-btn fab icon="edit_note" color="green" @click="prompt = true" />
+        </q-page-sticky>
+        <q-page-sticky position="bottom-right" :offset="[250, 80]">
+          <q-btn fab icon="picture_as_pdf" color="accent" @click="makepdf()" />
+        </q-page-sticky>
+        <q-dialog v-model="prompt">
+          <q-card style="min-width: 600px">
+            <q-form @submit.prevent @reset="onReset" class="q-gutter-md">
+              <q-card-section>
+                <div class="text-h6">Preencha as Informações</div>
+              </q-card-section>
 
-            <q-card-section class="q-pt-none">
-              <q-input
-                class="q-mb-md"
-                clearable
-                clear-icon="close"
-                filled
-                dense
-                v-model="this.form.nome"
-                label="Digite o nome a quem vai emprestar"
-                hint="Nome e sobrenome"
-                lazy-rules
-                :rules="[
-                  (val) =>
-                    (val && val.length > 0) || 'É necessário digitar o nome',
-                ]"
-              >
-                <template v-slot:append>
-                  <q-icon name="person" />
-                </template>
-              </q-input>
-              <div class="row">
+              <q-card-section class="q-pt-none">
                 <q-input
-                  v-if="this.cpf"
-                  class="q-mb-md col-8"
+                  class="q-mb-md"
                   clearable
                   clear-icon="close"
                   filled
                   dense
-                  type="text"
-                  v-model="this.form.siapecpf"
-                  label="CPF"
-                  hint="Digite o CPF"
-                  mask="###.###.###-##"
+                  v-model="this.form.nome"
+                  label="Digite o nome a quem vai emprestar"
+                  hint="Nome e sobrenome"
                   lazy-rules
                   :rules="[
                     (val) =>
-                      (val !== null && val !== '') || 'Por favor digite o CPF',
+                      (val && val.length > 0) || 'É necessário digitar o nome',
                   ]"
                 >
                   <template v-slot:append>
-                    <q-icon name="remember_me" />
+                    <q-icon name="person" />
                   </template>
                 </q-input>
+                <div class="row">
+                  <q-input
+                    v-if="this.cpf"
+                    class="q-mb-md col-8"
+                    clearable
+                    clear-icon="close"
+                    filled
+                    dense
+                    type="text"
+                    v-model="this.form.siapecpf"
+                    label="CPF"
+                    hint="Digite o CPF"
+                    mask="###.###.###-##"
+                    lazy-rules
+                    :rules="[
+                      (val) =>
+                        (val !== null && val !== '') ||
+                        'Por favor digite o CPF',
+                    ]"
+                  >
+                    <template v-slot:append>
+                      <q-icon name="remember_me" />
+                    </template>
+                  </q-input>
+                  <q-input
+                    v-else
+                    class="q-mb-md col-8"
+                    clearable
+                    clear-icon="close"
+                    filled
+                    dense
+                    type="text"
+                    v-model="this.form.siapecpf"
+                    label="SIAPE"
+                    hint="Digite o SIAPE"
+                    mask="########"
+                    lazy-rules
+                    :rules="[
+                      (val) =>
+                        (val !== null && val !== '') ||
+                        'Por favor digite o Siape',
+                      (val) => val.length <= 8 || 'Insira um SIAPE válido',
+                    ]"
+                  >
+                    <template v-slot:append>
+                      <q-icon name="badge" />
+                    </template>
+                  </q-input>
+                  <q-toggle
+                    v-model="this.cpf"
+                    class="col self-start"
+                    left-label
+                    size="lg"
+                    color="green"
+                    icon="person"
+                    label="CPF?"
+                  />
+                </div>
+                <div class="row">
+                  <q-input
+                    v-if="this.cel"
+                    class="q-mb-md col-8"
+                    clearable
+                    clear-icon="close"
+                    filled
+                    dense
+                    v-model="this.form.tel"
+                    label="Digite o Celular"
+                    hint="Celular com ddd"
+                    mask="(##) ##### - ####"
+                    lazy-rules
+                    :rules="[
+                      (val) =>
+                        (val && val.length > 0) ||
+                        'É necessário digitar o celular de contato',
+                    ]"
+                  >
+                    <template v-slot:append>
+                      <q-icon name="phone_iphone" />
+                    </template>
+                  </q-input>
+                  <q-input
+                    v-else
+                    class="q-mb-md col-8"
+                    clearable
+                    clear-icon="close"
+                    filled
+                    dense
+                    v-model="this.form.tel"
+                    label="Digite o Telefone"
+                    hint="Telefone com ddd"
+                    mask="(##) #### - ####"
+                    lazy-rules
+                    :rules="[
+                      (val) =>
+                        (val && val.length > 0) ||
+                        'É necessário digitar o telefone de contato',
+                    ]"
+                  >
+                    <template v-slot:append>
+                      <q-icon name="call" />
+                    </template>
+                  </q-input>
+                  <q-toggle
+                    v-model="this.cel"
+                    class="col self-start"
+                    left-label
+                    size="lg"
+                    color="blue"
+                    icon="phone_iphone"
+                    label="Celular?"
+                  />
+                </div>
                 <q-input
-                  v-else
-                  class="q-mb-md col-8"
+                  class="q-mb-md"
                   clearable
                   clear-icon="close"
                   filled
                   dense
-                  type="text"
-                  v-model="this.form.siapecpf"
-                  label="SIAPE"
-                  hint="Digite o SIAPE"
-                  mask="########"
-                  reverse-fill-mask
-                  lazy-rules
-                  :rules="[
-                    (val) =>
-                      (val !== null && val !== '') ||
-                      'Por favor digite o Siape',
-                  ]"
-                >
-                  <template v-slot:append>
-                    <q-icon name="badge" />
-                  </template>
-                </q-input>
-                <q-toggle
-                  v-model="this.cpf"
-                  class="col self-start"
-                  left-label
-                  size="lg"
-                  color="green"
-                  icon="person"
-                  label="CPF?"
-                />
-              </div>
-              <div class="row">
-                <q-input
-                  v-if="this.cel"
-                  class="q-mb-md col-8"
-                  clearable
-                  clear-icon="close"
-                  filled
-                  dense
-                  v-model="this.form.tel"
-                  label="Digite o Celular"
-                  hint="Celular com ddd"
-                  mask="(##) ##### - ####"
+                  v-model="this.form.origem"
+                  label="Setor ou Unidade de Origem:"
+                  hint="Digite o setor ou unidade ao qual pertence o equipamento"
                   lazy-rules
                   :rules="[
                     (val) =>
                       (val && val.length > 0) ||
-                      'É necessário digitar o celular de contato',
+                      'É necessário digitar o setor de origem',
                   ]"
                 >
                   <template v-slot:append>
-                    <q-icon name="phone_iphone" />
+                    <q-icon name="move_up" />
                   </template>
                 </q-input>
                 <q-input
-                  v-else
-                  class="q-mb-md col-8"
+                  class="q-mb-md"
                   clearable
                   clear-icon="close"
                   filled
                   dense
-                  v-model="this.form.tel"
-                  label="Digite o Telefone"
-                  hint="Telefone com ddd"
-                  mask="(##) #### - ####"
+                  v-model="this.form.setor"
+                  label="Setor ou Unidade de Destino:"
+                  hint="Digite o setor ou unidade ao qual ficará o equipamento"
                   lazy-rules
                   :rules="[
                     (val) =>
                       (val && val.length > 0) ||
-                      'É necessário digitar o telefone de contato',
+                      'É necessário digitar o setor de destino',
+                  ]"
+                  ><template v-slot:append>
+                    <q-icon name="move_down" />
+                  </template>
+                </q-input>
+                <q-input
+                  clearable
+                  clear-icon="close"
+                  v-model="this.form.equipamento"
+                  filled
+                  dense
+                  label="Descrição do equipamento:"
+                  type="textarea"
+                  hint="Digite a especificação, marca, tombo etc do equipamento"
+                  lazy-rules
+                  :rules="[
+                    (val) =>
+                      (val && val.length > 0) ||
+                      'É necessário digitar a especificação do equipamento',
                   ]"
                 >
                   <template v-slot:append>
-                    <q-icon name="call" />
+                    <q-icon name="weekend" />
                   </template>
                 </q-input>
-                <q-toggle
-                  v-model="this.cel"
-                  class="col self-start"
-                  left-label
-                  size="lg"
-                  color="blue"
-                  icon="phone_iphone"
-                  label="Celular?"
-                />
-              </div>
-              <q-input
-                class="q-mb-md"
-                clearable
-                clear-icon="close"
-                filled
-                dense
-                v-model="this.form.origem"
-                label="Setor ou Unidade de Origem:"
-                hint="Digite o setor ou unidade ao qual pertence o equipamento"
-                lazy-rules
-                :rules="[
-                  (val) =>
-                    (val && val.length > 0) ||
-                    'É necessário digitar o setor de origem',
-                ]"
-              >
-                <template v-slot:append>
-                  <q-icon name="move_up" />
-                </template>
-              </q-input>
-              <q-input
-                class="q-mb-md"
-                clearable
-                clear-icon="close"
-                filled
-                dense
-                v-model="this.form.setor"
-                label="Setor ou Unidade de Destino:"
-                hint="Digite o setor ou unidade ao qual ficará o equipamento"
-                lazy-rules
-                :rules="[
-                  (val) =>
-                    (val && val.length > 0) ||
-                    'É necessário digitar o setor de destino',
-                ]"
-                ><template v-slot:append>
-                  <q-icon name="move_down" />
-                </template>
-              </q-input>
-              <q-input
-                clearable
-                clear-icon="close"
-                v-model="this.form.equipamento"
-                filled
-                dense
-                label="Descrição do equipamento:"
-                type="textarea"
-                hint="Digite a especificação, marca, tombo etc do equipamento"
-                lazy-rules
-                :rules="[
-                  (val) =>
-                    (val && val.length > 0) ||
-                    'É necessário digitar a especificação do equipamento',
-                ]"
-              >
-                <template v-slot:append>
-                  <q-icon name="weekend" />
-                </template>
-              </q-input>
-            </q-card-section>
+              </q-card-section>
 
-            <q-card-actions align="right" class="text-primary">
-              <q-btn
-                label="Limpar"
-                type="reset"
-                color="primary"
-                @click="limpar()"
-                flat
-                class="q-ml-sm"
-              />
-              <q-btn label="Cancelar" color="negative" v-close-popup />
-              <q-btn
-                label="Preencher"
-                type="submit"
-                color="primary"
-                v-close-popup
-              />
-            </q-card-actions>
-          </q-form>
-        </q-card>
-      </q-dialog>
-      <div class="principal">
-        <table>
-          <tr>
-            <td>
-              <img class="imgufba" alt="ufba logo" src="../assets/UFBA.jpg" />
-            </td>
-            <td class="titulo">
-              <span>{{ this.titulo }}</span
-              ><br /><span class="unidade">{{ this.subtitulo }}</span>
-            </td>
-            <td>
-              <img alt="faced logo" src="../assets/faced.png" />
-            </td>
-          </tr>
-        </table>
-        <h3 class="h3">Termo de Empréstimo de Equipamentos</h3>
-        <table class="dados">
-          <tr>
-            <td>Nome: {{ this.form.nome }}</td>
-          </tr>
-          <tr>
-            <td>Siape/CPF: {{ this.form.siapecpf }}</td>
-          </tr>
-          <tr>
-            <td>Tel. para Contato: {{ this.form.tel }}</td>
-          </tr>
-          <tr>
-            <td>Setor/Unidade: {{ this.form.setor }}</td>
-          </tr>
-          <tr>
-            <td>Especificação do Equipamento: {{ this.form.equipamento }}</td>
-          </tr>
-        </table>
-        <br />
-        <div class="responsabilidade">
-          <p>
-            Pelo presente Termo de Entrega e Responsabilidade, o servidor acima
-            qualificado declara que recebeu o equipamento e acessório acima
-            especificados, de propriedade do setor/unidade:
-            {{ this.form.origem }}, assumindo o compromisso de manter a guarda
-            pessoal sobre os mesmos, ficando a seu cargo:
-          </p>
-          <ul>
-            <li>Adequada utilização, de acordo com as recomendações;</li>
-            <li>
-              Comprometer-se a não conceder empréstimo ou confiar a outrem;
-            </li>
-            <li>
-              Comunicar imediatamente qualquer incidente e ocorrência com o
-              equipamento sob sua guarda e responsabilidade;
-            </li>
-            <li>
-              Indenizar os danos causados por negligência, imprudência,
-              imperícia, <br />má utilização, guarda inadequada, desleixo ou
-              outro dano que possa decorrer, direta ou indiretamente, de sua
-              ação ou omissão.
-            </li>
-          </ul>
-        </div>
-        <div class="assinatura">
+              <q-card-actions align="right" class="text-primary">
+                <q-btn
+                  label="Limpar"
+                  type="reset"
+                  color="primary"
+                  @click="limpar()"
+                  flat
+                  class="q-ml-sm"
+                />
+                <q-btn label="Cancelar" color="negative" v-close-popup />
+                <q-btn
+                  label="Preencher"
+                  type="submit"
+                  color="primary"
+                  v-close-popup
+                />
+              </q-card-actions>
+            </q-form>
+          </q-card>
+        </q-dialog>
+        <div class="principal">
+          <table>
+            <tr>
+              <td>
+                <img class="imgufba" alt="ufba logo" src="../assets/UFBA.jpg" />
+              </td>
+              <td class="titulo">
+                <span>{{ this.titulo }}</span
+                ><br /><span class="unidade">{{ this.subtitulo }}</span>
+              </td>
+              <td>
+                <img alt="faced logo" src="../assets/faced.png" />
+              </td>
+            </tr>
+          </table>
+          <h3 class="h3">Termo de Empréstimo de Equipamentos</h3>
+          <table class="dados">
+            <tr>
+              <td>Nome: {{ this.form.nome }}</td>
+            </tr>
+            <tr>
+              <td>Siape/CPF: {{ this.form.siapecpf }}</td>
+            </tr>
+            <tr>
+              <td>Tel. para Contato: {{ this.form.tel }}</td>
+            </tr>
+            <tr>
+              <td>Setor/Unidade: {{ this.form.setor }}</td>
+            </tr>
+            <tr>
+              <td>Especificação do Equipamento: {{ this.form.equipamento }}</td>
+            </tr>
+          </table>
           <br />
-          <span>Salvador, </span>{{ dataAtual }} <br /><br /><br />
-          <span> Assinatura: </span>
-          <span>________________________________________</span>
+          <div class="responsabilidade">
+            <p>
+              Pelo presente Termo de Entrega e Responsabilidade, o servidor
+              acima qualificado declara que recebeu o equipamentos e acessórios
+              acima especificados, de propriedade do setor/unidade:
+              {{ this.form.origem }}, assumindo o compromisso de manter a guarda
+              pessoal sobre os mesmos, ficando a seu cargo:
+            </p>
+            <ul>
+              <li>Adequada utilização, de acordo com as recomendações;</li>
+              <li>
+                Comprometer-se a não conceder empréstimo ou confiar a outrem;
+              </li>
+              <li>
+                Comunicar imediatamente qualquer incidente e ocorrência com o
+                equipamento sob sua guarda e responsabilidade;
+              </li>
+              <li>
+                Indenizar os danos causados por negligência, imprudência,
+                imperícia, <br />má utilização, guarda inadequada, desleixo ou
+                outro dano que possa decorrer, direta ou indiretamente, de sua
+                ação ou omissão.
+              </li>
+            </ul>
+          </div>
+          <div class="assinatura">
+            <br />
+            <span>Salvador, </span>{{ dataAtual }} <br /><br /><br />
+            <span> Assinatura: </span>
+            <span>________________________________________</span>
+          </div>
         </div>
       </div>
-    </div>
-  </q-page>
+    </q-page>
+  </transition>
 </template>
 
 <style>
@@ -339,6 +346,22 @@ export default {
       prompt: ref(false),
     };
   },
+  watch: {
+    cel(novo) {
+      if (novo) {
+        this.form.tel = "";
+      } else {
+        this.form.tel = "";
+      }
+    },
+    cpf(novo) {
+      if (novo) {
+        this.form.siapecpf = "";
+      } else {
+        this.form.siapecpf = "";
+      }
+    },
+  },
   methods: {
     limpar() {
       this.form = {
@@ -375,7 +398,7 @@ export default {
   font-family: Arial, Helvetica, sans-serif;
   padding-top: 30px;
   height: 8.4in;
-  width: 8.5in;
+  width: 6.2in;
   background-color: white;
 }
 img {

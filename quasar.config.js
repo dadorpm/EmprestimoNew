@@ -103,7 +103,7 @@ module.exports = configure(function (ctx) {
 
     // animations: 'all', // --- includes all animations
     // https://quasar.dev/options/animations
-    animations: [],
+    animations: 'all',
 
     // https://v2.quasar.dev/quasar-cli-webpack/developing-ssr/configuring-ssr
     ssr: {
@@ -208,9 +208,9 @@ module.exports = configure(function (ctx) {
         // https://www.electron.build/configuration/configuration
 
         appId: 'emprestimo',
-        win: {
+       /*  win: {
           target: 'portable'
-        }
+        } */
 
       },
 
