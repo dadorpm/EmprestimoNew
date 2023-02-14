@@ -6,11 +6,14 @@
   >
     <q-page class="flex flex-center fundo">
       <div id="documento" class="shadow-box shadow-up-10">
-        <q-page-sticky position="bottom-right" :offset="[250, 150]">
+        <q-page-sticky position="bottom-right" :offset="[250, 200]">
           <q-btn fab icon="edit_note" color="green" @click="prompt = true" />
         </q-page-sticky>
-        <q-page-sticky position="bottom-right" :offset="[250, 80]">
+        <q-page-sticky position="bottom-right" :offset="[250, 130]">
           <q-btn fab icon="picture_as_pdf" color="accent" @click="makepdf()" />
+        </q-page-sticky>
+        <q-page-sticky position="bottom-right" :offset="[250, 60]">
+          <q-btn fab icon="print" color="primary" @click="imprimir()" />
         </q-page-sticky>
         <q-dialog v-model="prompt">
           <q-card style="min-width: 600px">
@@ -363,6 +366,9 @@ export default {
     },
   },
   methods: {
+    imprimir(){
+      window.print();
+    },
     limpar() {
       this.form = {
         nome: "",
