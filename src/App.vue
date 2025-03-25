@@ -9,7 +9,6 @@ export default defineComponent({
   name: "App",
 });
 </script>
-
 <style>
 @media print {
   body * {
