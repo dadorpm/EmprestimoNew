@@ -10,7 +10,7 @@
         src="~assets/faced.png"
         style="width: 300px; height: 160px"
       />
-      <h4 class="">Sistema de Geração de Termo de Empréstimo</h4>
+      <h4>Sistema de Geração de Termo de Empréstimo</h4>
     </q-page>
   </transition>
 </template>

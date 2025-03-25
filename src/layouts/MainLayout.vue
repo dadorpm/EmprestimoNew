@@ -54,7 +54,13 @@ const linksList = [
     caption: "documento",
     icon: "description",
     link: "/documento",
-  }
+  },
+  {
+    title: "QR-Code",
+    caption: "qrcode",
+    icon: "qr_code",
+    link: "/qrcode",
+  },
 ];
 
 export default defineComponent({

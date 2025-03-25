@@ -5,7 +5,8 @@ const routes = [
     component: () => import('layouts/MainLayout.vue'),
     children: [
       { path: '', component: () => import('pages/IndexPage.vue') },
-      { path: 'documento', component: () => import('pages/Documento.vue') }
+      { path: 'documento', component: () => import('pages/Documento.vue') },
+      { path: 'qrcode', component: () => import('pages/Qrcode.vue') }
 
     ]
   },
