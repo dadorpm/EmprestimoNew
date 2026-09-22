@@ -196,6 +196,36 @@
                     <q-icon name="move_down" />
                   </template>
                 </q-input>
+                <div class="row">
+                  <q-input
+                    v-if="this.dir"
+                    class="q-mb-md col-7"
+                    clearable
+                    clear-icon="close"
+                    filled
+                    dense
+                    v-model="this.form.diretor"
+                    label="Digite o Nome do Diretor(a)"
+                    hint="Nome completo do diretor(a)"
+                    lazy-rules
+                    :rules="[
+                      (val && val.length > 0) || 'É necessário digitar o nome do diretor(a)',
+                    ]"
+                  >
+                    <template v-slot:append>
+                      <q-icon name="supervisor_account" />
+                    </template>
+                  </q-input>
+                  <q-toggle
+                    v-model="this.dir"
+                    class="col self-start"
+                    left-label
+                    size="lg"
+                    color="pink"
+                    icon="co_present"
+                    label="Vai sair da Unidade?"
+                  />
+                </div>
                 <q-input
                   clearable
                   clear-icon="close"
@@ -268,17 +298,17 @@
               <td>Setor/Unidade: {{ this.form.setor }}</td>
             </tr>
             <tr>
-              <td>Especificação do Equipamento: {{ this.form.equipamento }}</td>
+              <td>Especificação do(s) Equipamento(s): {{ this.form.equipamento }}</td>
             </tr>
           </table>
           <br />
           <div class="responsabilidade">
             <p>
-              Pelo presente Termo de Entrega e Responsabilidade, o servidor
-              acima qualificado declara que recebeu o equipamentos e acessórios
-              acima especificados, de propriedade do setor/unidade:
+              Pelo presente Termo de Entrega e Responsabilidade, o servidor(a)
+              acima qualificado declara que recebeu o(s) equipamento(s) e acessório(s)
+              acima especificado(s), de propriedade do setor/unidade:
               {{ this.form.origem }}, assumindo o compromisso de manter a guarda
-              pessoal sobre os mesmos, ficando a seu cargo:
+              pessoal sobre os mesmo(s), ficando a seu cargo:
             </p>
             <ul>
               <li>Adequada utilização, de acordo com as recomendações;</li>
@@ -297,7 +327,20 @@
               </li>
             </ul>
           </div>
-          <div class="assinatura">
+          <div v-if="this.dir" class="assinaturadir">
+            <br />
+            <span>Salvador, </span>{{ dataAtual }} <br /><br /><br />
+            <div class="row">
+              <span class='q-mb-md col-6 flex flex-center'>______________________________</span>
+              <span class='q-mb-md col-6 flex flex-center'>______________________________</span>
+            </div>
+            <div class="row">
+              <span class='q-mb-md col-6 flex flex-center'>{{ this.form.nome }}</span>
+              <span class='q-mb-md col-6 flex flex-center'>{{ this.form.diretor }}</span>
+            </div>
+
+          </div>
+          <div v-else class="assinatura">
             <br />
             <span>Salvador, </span>{{ dataAtual }} <br /><br /><br />
             <span> Assinatura: </span>
@@ -323,9 +366,10 @@ export default {
     return {
       titulo: "Universidade Federal da Bahia",
       subtitulo: "Faculdade de Educação",
-      cel: false,
+      cel: true,
       cpf: false,
       cpfFalso: false,
+      dir: false,
       form: {
         nome: "",
         tel: "",
@@ -333,6 +377,7 @@ export default {
         siapecpf: "",
         equipamento: "",
         origem: "",
+        diretor: "",
       },
     };
   },
@@ -367,6 +412,13 @@ export default {
         this.form.siapecpf = "";
       }
     },
+    dir(novo) {
+      if (novo) {
+        this.form.diretor = "";
+      } else {
+        this.form.diretor = "";
+      }
+    },
   },
   methods: {
     imprimir() {
@@ -380,6 +432,7 @@ export default {
         siapecpf: "",
         equipamento: "",
         origem: "",
+        diretor: "",
       };
     },
     makepdf() {
@@ -425,7 +478,7 @@ li {
 }
 
 .h3 {
-  margin-top: 10px;
+  margin-top: 8px;
   margin-left: 110px;
   margin-bottom: 20px;
   font-family: "Times New Roman", Times, serif;
@@ -458,6 +511,13 @@ li {
   font-family: Arial, Helvetica, sans-serif;
 
   margin-left: 50px;
+  max-width: 500px;
+}
+.assinaturadir{
+  font: 400 12px;
+  font-family: Arial, Helvetica, sans-serif;
+
+  margin-left: 40px;
   max-width: 500px;
 }
 </style>
